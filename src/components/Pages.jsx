@@ -14,6 +14,7 @@ function Pages() {
           <Route path="/details/:id" element={<MovieDetails />} />
           <Route path="/add" element={<Addnew />} />
           <Route path="/update/:id" element={<Update />} />
+          <Route path="*" element={<h2>Page Not Found</h2>} />
         </Routes>
       </BrowserRouter>
     </div>
