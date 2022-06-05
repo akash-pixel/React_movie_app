@@ -22,7 +22,7 @@ function Addnew() {
       alert("Title should have minimum 3 character and maximum 60 charater ")  
       return false
     };
-    if( data.genre.length === 0  ) {
+    if( data.genre.length === 0 || data.rating.length>3 ) {
       alert("At least choose one genre.")
       return false;
     }
@@ -68,7 +68,7 @@ function Addnew() {
             genres.map((genre,index) => {
               return <div key={index} >
                     <Label htmlFor={genre}>{genre}</Label>
-                    <input type="checkbox" onChange={handleChange} id={genre} value={index+1} />
+                    <input type="checkbox" onChange={handleChange} id={genre} value={genre} />
                  </div>              
             } )
           }
