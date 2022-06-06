@@ -91,6 +91,7 @@ const Button = styled.a`
 const Delbtn = styled.button`
 background: none;
 border: none;
+font-size:15px;
 `
 
 const Searchbar = styled.div`
