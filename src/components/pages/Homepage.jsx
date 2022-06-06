@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import styled from 'styled-components';
-import axios from '../axios.js';
-import Sort from './Sort.jsx';
+import axios from '../../axios.js';
+import Sort from '../Sort.jsx';
 
 function Homepage() {
 

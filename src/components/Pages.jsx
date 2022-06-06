@@ -1,9 +1,9 @@
 import React from 'react'
 import { BrowserRouter , Routes, Route} from 'react-router-dom'
-import Homepage from './Homepage'
-import MovieDetails from './MovieDetails'
-import Addnew from './Addnew'
-import Update from './Update'
+import Homepage from './pages/Homepage'
+import MovieDetails from './pages/MovieDetails'
+import Addnew from './pages/Addnew'
+import Update from './pages/Update'
 
 function Pages() {
   return (

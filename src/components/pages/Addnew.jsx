@@ -1,77 +1,48 @@
-import React, {useEffect, useState, useCallback} from 'react'
-import styled from 'styled-components'
-import  {useParams , useNavigate } from 'react-router-dom'
-import axios from '../axios'
+import React from 'react'
+import styled from 'styled-components';
+import axios from '../../axios'
 
-function Update() {
+function Addnew() {
 
-  const navigate = useNavigate();
-  const {id} = useParams()
-  const [movie, setMovie] = useState([])
   const genres = ["Action", "Comedy","Drama","Fantasy", "Horror", "Mystery","Romance" ,"Thriller", "Western "]
 
   let genre = [];
-  let data = { title:"", release_date:"", price:0, rating:0 }
+  const handleChange = (e) =>{
+    const {value, checked} = e.target;
+    checked ? genre.push(value) : genre = genre.filter(e => e !== value )
+  }
+
+  const data = { title:"", release_date:"", price:0, rating:0 }
   const handleInput = (e) =>{
     data[e.target.name] = e.target.value; 
   }
 
-  // Form validation
   const validate = () => {
     if ( data.title.length < 3 || data.title.length > 60 ){ 
       alert("Title should have minimum 3 character and maximum 60 charater ")  
       return false
     };
-    if( data.rating > 10.0 || data.rating > 0.0  ){
-      alert("Rating should not be less than 0 and greater than 10.")  
-      return false
+    if( data.genre.length === 0 || data.rating.length>3 ) {
+      alert("At least choose one genre.")
+      return false;
     }
     return true;
   }
 
-  const submitHandler = async () => {    
+  const submitHandler = async () => {
+    
     data['price'] = parseFloat( data.price )
     data['rating'] = parseFloat( data.rating )
     data["genre"] = genre;
-    console.log(data);
 
-    if (validate(data) === false ) return;
-
-    let result = await axios.put("/update/"+id, data)
-    console.log(result);
-    // window.location.href("/")
-    navigate("/")
-  }
-
-  const fillData = (m) => {
-    document.getElementById("title").value = m.title 
-    document.getElementById("release_date").value = m.release_date
-    document.getElementById("price").value = m.price
-    document.getElementById("rating").value = m.rating
-    
-    data.title = m.title
-    data.release_date = m.release_date
-    data.rating = m.rating
-    data.price = m.price
-    console.log(data);
-  }
-
-  const fetchData = useCallback( async () => {
-    const result = await axios.get("/details/"+id)
-    console.log(result.data.data);
-    setMovie(result.data.data);
-    fillData(result.data.data[0] );
-
-
-  },
-  [ id ],
-  )
-
-  useEffect(()=>{
-    if ( movie.length === 0 ){
-      fetchData();
+    if (validate(data) === false ){
+      return;
     }
-  },[ fetchData, movie])
+
+    let result = await axios.post("/", data)
+    console.log(result);
+    window.location.reload()
+  }
 
   return (
     <Container>
@@ -97,7 +68,7 @@ function Update() {
             genres.map((genre,index) => {
               return <div key={index} >
                     <Label htmlFor={genre}>{genre}</Label>
-                    <input type="checkbox"  id={genre} value={index+1} />
+                    <input type="checkbox" onChange={handleChange} id={genre} value={genre} />
                  </div>              
             } )
           }
@@ -107,6 +78,7 @@ function Update() {
   )
 }
 
+
 const Container = styled.div`
   margin: 20px;
   gap: 4px;
@@ -114,10 +86,11 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 73vh;
 `
 
 const Label = styled.label`
   margin-right: 8px;
 `
 
-export default Update
+export default Addnew
