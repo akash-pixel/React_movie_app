@@ -1,46 +1,50 @@
-import React from 'react'
+import React,{ useState }from 'react'
 import styled from 'styled-components';
 import axios from '../../axios'
 
 function Addnew() {
 
-  const genres = ["Action", "Comedy","Drama","Fantasy", "Horror", "Mystery","Romance" ,"Thriller", "Western "]
+  const genreList = ["Action", "Comedy","Drama","Fantasy", "Horror", "Mystery","Romance" ,"Thriller", "Western "]
+  
+  const [selectedGenre, setGenre] = useState([])
+  const [title, setTitle] = useState("")
+  const [releaseDate, setReleaseDate] = useState("")
+  const [price, setPrice] = useState("")
+  const [rating, setRating] = useState("")
 
-  let genre = [];
-  const handleChange = (e) =>{
-    const {value, checked} = e.target;
-    checked ? genre.push(value) : genre = genre.filter(e => e !== value )
-  }
-
-  const data = { title:"", release_date:"", price:0, rating:0 }
-  const handleInput = (e) =>{
-    data[e.target.name] = e.target.value; 
-  }
-
-  const validate = () => {
-    if ( data.title.length < 3 || data.title.length > 60 ){ 
-      alert("Title should have minimum 3 character and maximum 60 charater ")  
-      return false
-    };
-    if( data.genre.length === 0 || data.rating.length>3 ) {
-      alert("At least choose one genre.")
-      return false;
+  const handleCheckbox = (e) =>{
+    const { value , checked} = e.target;
+    if( checked)
+      setGenre( [...selectedGenre, value ] )
+    else{
+      setGenre( selectedGenre.filter(item => item !== value) );  
     }
-    return true;
   }
 
-  const submitHandler = async () => {
-    
-    data['price'] = parseFloat( data.price )
-    data['rating'] = parseFloat( data.rating )
-    data["genre"] = genre;
+  const handleRating = (e) =>{
+    let value = e.target.value;
+    if( isNaN(value) || parseFloat(value) > 10 || parseFloat(value) < 0 ){
+      alert("Enter number between 0 to 10")
+    }
+    else{
+      setRating(value)
+    }
+  }
 
-    if (validate(data) === false ){
+  const submitHandler = async () =>{ 
+    const data = { title: title, release_date: releaseDate, price: price, rating: rating, genre: selectedGenre };
+    let result = await axios.post( "/", data )
+    if( result.status !== 201 ){
+      alert("Server Error\nPlease try later...")
       return;
     }
-
-    let result = await axios.post("/", data)
-    console.log(result);
+    
+    setTitle("")
+    setReleaseDate("")
+    setPrice("")
+    setRating("")
+    setGenre([])
+    
     window.location.reload()
   }
 
@@ -48,32 +52,32 @@ function Addnew() {
     <Container>
         <span>
           <Label htmlFor="title">Title</Label>
-          <input name='title' id='title' type="text" onChange={handleInput} required minLength="3" maxLength="60"/>
+          <input type="text" value={title} onChange={(e)=>setTitle(e.target.value)} name='title' maxLength="60"/>
         </span>
         <span>
           <Label htmlFor="release_date">Release Date</Label>
-          <input type="date" id='release_date' onChange={handleInput} name="release_date" />
+          <input type="date" value={releaseDate} onChange={(e)=>setReleaseDate(e.target.value)} name="release_date" />
         </span>
         <span>
           <Label htmlFor="price">Price</Label>
-          <input type="text" id='price' onChange={handleInput} name="price" />
+          <input type="text" value={price} onChange={(e)=>{!isNaN(e.target.value)? setPrice(e.target.value): alert("Enter number only") } } name="price" maxLength="13" />
         </span>
         <span>
           <Label htmlFor="rating">Rating</Label>
-          <input type="text" id='rating' onChange={handleInput} name="rating" />
+          <input type="text" value={rating} onChange={handleRating}  name="rating" maxLength="3" />
         </span>
         <div>
           <h3>Choose Genre:</h3>
           {
-            genres.map((genre,index) => {
+            genreList.map((genre,index) => {
               return <div key={index} >
                     <Label htmlFor={genre}>{genre}</Label>
-                    <input type="checkbox" onChange={handleChange} id={genre} value={genre} />
+                    <input type="checkbox" checked={ selectedGenre.includes(genre) } onChange={handleCheckbox} value={genre} />
                  </div>              
             } )
           }
         </div>
-        <button onClick={submitHandler}>Submit</button>
+        <Button onClick={submitHandler}>Submit</Button>
     </Container>
   )
 }
@@ -91,6 +95,16 @@ const Container = styled.div`
 
 const Label = styled.label`
   margin-right: 8px;
+`
+const Button = styled.button`
+  background:#98EDDF;
+  margin-top: 10px;
+  font-size: 15px;
+  padding: 6px;
+  border: none;
+  border-radius:25px;
+
+  &:hover{ background: #5AB8A8 }
 `
 
 export default Addnew

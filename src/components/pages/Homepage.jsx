@@ -42,7 +42,8 @@ function Homepage() {
       </Searchbar>
      
       <Sort setSort={setSort} setSortBy={setSortBy} />
-      
+
+     { (data.length !== 0) ?  
       <table style={{"borderSpacing": "15px"}} >
         <thead>
           <tr>
@@ -69,7 +70,9 @@ function Homepage() {
         }
         </tbody>
       </table>
-    
+      :
+      <h2>Loading...</h2>
+      }
     </Main>
   )
 }

@@ -88,7 +88,7 @@ function Update() {
             } )
           }
         </div>
-        <button onClick={submitHandler}>Submit</button>
+        <Button onClick={submitHandler}>Submit</Button>
     </Container>
   )
 }
@@ -105,6 +105,16 @@ const Container = styled.div`
 
 const Label = styled.label`
   margin-right: 8px;
+`
+const Button = styled.button`
+  background:#98EDDF;
+  margin-top: 10px;
+  font-size: 15px;
+  padding: 6px;
+  border: none;
+  border-radius:25px;
+
+  &:hover{ background: #5AB8A8 }
 `
 
 export default Update
