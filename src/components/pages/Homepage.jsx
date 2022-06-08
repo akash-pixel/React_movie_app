@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import axios from '../../axios.js';
 import Sort from '../Sort.jsx';
 
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 function Homepage() {
 
   // word is used for search text
@@ -38,13 +41,16 @@ function Homepage() {
     <Main>
       <Searchbar>
         <Input type="text" name='searchbar' value={word} onChange={(e)=>setWord(e.target.value)} />
-        <Sbutton onClick={searchHandler}> Search </Sbutton>
+        <Sbutton onClick={searchHandler}>  
+          <FontAwesomeIcon style={{marginRight:"5px"}} icon={faMagnifyingGlass} />
+          Search 
+        </Sbutton>
       </Searchbar>
      
       <Sort setSort={setSort} setSortBy={setSortBy} />
 
      { (data.length !== 0) ?  
-      <table style={{"borderSpacing": "15px"}} >
+      <table  style={{"marginTop":"15px","border":"none"}} >
         <thead>
           <tr>
             <th>Index</th>
@@ -59,19 +65,19 @@ function Homepage() {
         {
           data.map((row, index)=>{
             return <TR key={index}>
-              <td>{index+1}</td>
-              <td>{row.title}</td>
-              <td>{row.rating}</td>
-              <td> <Button href={"/details/"+row.id} >Details</Button>  </td>
-              <td> <Button href={"/update/"+row.id} >Edit </Button></td>
-              <td> <Delbtn onClick={deleteMovie} data-id={row.id}> Delete </Delbtn>  </td>
+              <TD>{index+1}</TD>
+              <TD>{row.title}</TD>
+              <TD>{row.rating}</TD>
+              <TD> <Button href={"/details/"+row.id} >Details</Button>  </TD>
+              <TD> <Button href={"/update/"+row.id} >Edit </Button></TD>
+              <TD> <Delbtn onClick={deleteMovie} data-id={row.id}> Delete </Delbtn>  </TD>
             </TR>
           })
         }
         </tbody>
       </table>
       :
-      <h2>Loading...</h2>
+      <h2 style={{"marginTop":"20px"}}>Loading...</h2>
       }
     </Main>
   )
@@ -81,6 +87,9 @@ const TR = styled.tr`
   &:hover{
     background:#eee
   }
+`
+const TD = styled.td`
+  padding: 5px 8px;
 `
 
 const Button = styled.a`
@@ -104,6 +113,7 @@ const Input = styled.input`
   padding: 5px;
   padding-left: 12px;
   border: solid black 1px;
+  font-size:14px;
 `
 const Sbutton = styled.button`
   text-decoration:none;

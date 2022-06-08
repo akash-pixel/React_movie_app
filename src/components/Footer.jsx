@@ -15,7 +15,7 @@ const Div = styled.div`
   display:flex;
   align-items:center;
   justify-content:center;
-  background:#c1e1ec;
+  background:#B4F2E8;
 `
 
 export default Footer
