@@ -8,7 +8,7 @@ import Update from './pages/Update'
 function Pages() {
   return (
     <div>
-      <BrowserRouter basename='/'>
+      <BrowserRouter basename="/" >
         <Routes >
           <Route path="/" element={<Homepage />} />
           <Route path="/details/:id" element={<MovieDetails />} />
