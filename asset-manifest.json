@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/akash-pixel.github.io/React_movie_app/static/css/main.c7ec3132.css",
-    "main.js": "/akash-pixel.github.io/React_movie_app/static/js/main.1a5f38b1.js",
-    "index.html": "/akash-pixel.github.io/React_movie_app/index.html",
-    "main.c7ec3132.css.map": "/akash-pixel.github.io/React_movie_app/static/css/main.c7ec3132.css.map",
-    "main.1a5f38b1.js.map": "/akash-pixel.github.io/React_movie_app/static/js/main.1a5f38b1.js.map"
+    "main.css": "/React_movie_app/static/css/main.c7ec3132.css",
+    "main.js": "/React_movie_app/static/js/main.90253ce3.js",
+    "index.html": "/React_movie_app/index.html",
+    "main.c7ec3132.css.map": "/React_movie_app/static/css/main.c7ec3132.css.map",
+    "main.90253ce3.js.map": "/React_movie_app/static/js/main.90253ce3.js.map"
   },
   "entrypoints": [
     "static/css/main.c7ec3132.css",
-    "static/js/main.1a5f38b1.js"
+    "static/js/main.90253ce3.js"
   ]
 }
