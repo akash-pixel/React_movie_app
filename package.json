@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "1.0.0",
-  "homepage": "",
+  "homepage": "https://themoviedock-client.herokuapp.com",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
