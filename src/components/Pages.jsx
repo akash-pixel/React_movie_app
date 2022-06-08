@@ -8,7 +8,7 @@ import Update from './pages/Update'
 function Pages() {
   return (
     <div>
-      <BrowserRouter basename='/React_movie_app'>
+      <BrowserRouter basename='/'>
         <Routes >
           <Route path="/" element={<Homepage />} />
           <Route path="/details/:id" element={<MovieDetails />} />
